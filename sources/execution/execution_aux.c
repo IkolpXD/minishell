@@ -1,0 +1,76 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execution_aux.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: danuno-g <danuno-g@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/21 09:15:14 by agrippa           #+#    #+#             */
+/*   Updated: 2026/03/20 23:25:45 by danuno-g         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/minishell.h"
+
+static void	exec_pipe_aux1(t_ast *node, int *fds, t_shell *shell, int *pipe_fd)
+{
+	dup2(pipe_fd[1], STDOUT_FILENO);
+	close(pipe_fd[0]);
+	close(pipe_fd[1]);
+	if (fds[0] != STDIN_FILENO)
+		dup2(fds[0], STDIN_FILENO);
+	exec_ast(node->left, fds, shell);
+	free_env_list(shell->env);
+	free_ast(shell->ast);
+	free_token_list(shell->tokens);
+	free(shell->line);
+	rl_clear_history();
+	exit(0);
+}
+
+static void	exec_pipe_aux2(t_ast *node, int *fds, t_shell *shell, int *pipe_fd)
+{
+	dup2(pipe_fd[0], STDIN_FILENO);
+	close(pipe_fd[0]);
+	close(pipe_fd[1]);
+	if (fds[1] != STDOUT_FILENO)
+		dup2(fds[1], STDOUT_FILENO);
+	exec_ast(node->right, fds, shell);
+	free_env_list(shell->env);
+	free_ast(shell->ast);
+	free_token_list(shell->tokens);
+	free(shell->line);
+	rl_clear_history();
+	exit(0);
+}
+
+void	exec_pipe(t_ast *node, int *fds, t_shell *shell)
+{
+	int		pipe_fd[2];
+	pid_t	pid1;
+	pid_t	pid2;
+
+	if (pipe(pipe_fd) == -1)
+	{
+		perror("pipe");
+		return ;
+	}
+	pid1 = fork();
+	if (pid1 == 0)
+		exec_pipe_aux1(node, fds, shell, pipe_fd);
+	pid2 = fork();
+	if (pid2 == 0)
+		exec_pipe_aux2(node, fds, shell, pipe_fd);
+	close(pipe_fd[0]);
+	close(pipe_fd[1]);
+	waitpid(pid2, NULL, 0);
+	waitpid(pid1, NULL, 0);
+}
+
+void	restore_stds(int fds[2])
+{
+	dup2(fds[0], STDIN_FILENO);
+	dup2(fds[1], STDOUT_FILENO);
+	close(fds[0]);
+	close(fds[1]);
+}

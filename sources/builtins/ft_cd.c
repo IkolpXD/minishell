@@ -1,0 +1,58 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_cd.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: danuno-g <danuno-g@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/20 11:21:15 by danuno-g          #+#    #+#             */
+/*   Updated: 2026/03/20 23:25:16 by danuno-g         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/minishell.h"
+
+static char	*resolve_cd_target(t_shell *shell, char *arg)
+{
+	if (!arg || ft_strncmp(arg, "~", 2) == 0)
+		return (get_env_value_from_env(shell->env, "HOME"));
+	if (ft_strncmp(arg, "-", 2) == 0)
+		return (get_env_value_from_env(shell->env, "OLDPWD"));
+	return (arg);
+}
+
+static void	update_cd_env(t_shell *shell, char *oldpwd)
+{
+	char	cwd[PATH_MAX];
+
+	if (oldpwd)
+		add_or_update(&shell->env, "OLDPWD", oldpwd);
+	if (getcwd(cwd, sizeof(cwd)))
+		add_or_update(&shell->env, "PWD", cwd);
+}
+
+int	ft_cd(t_shell *shell, char **args)
+{
+	char	*oldpwd;
+	char	*target;
+
+	oldpwd = get_env_value_from_env(shell->env, "PWD");
+	if (oldpwd)
+		oldpwd = ft_strdup(oldpwd);
+	target = resolve_cd_target(shell, args[1]);
+	if (!target)
+	{
+		printf("cd: no such file or directory\n");
+		free(oldpwd);
+		return (1);
+	}
+	if (chdir(target) != 0)
+	{
+		perror("cd");
+		free(oldpwd);
+		return (1);
+	}
+	update_cd_env(shell, oldpwd);
+	free(oldpwd);
+	return (0);
+}
