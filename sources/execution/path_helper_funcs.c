@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_helper_funcs.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danuno-g <danuno-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: made-jes <made-jes@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 09:15:14 by agrippa           #+#    #+#             */
-/*   Updated: 2026/03/20 23:25:59 by danuno-g         ###   ########.fr       */
+/*   Updated: 2026/03/24 22:33:02 by made-jes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ static char	*check_special_cmd(char *cmd, t_shell *shell)
 {
 	if (!ft_strncmp(cmd, ".", 2))
 	{
-		printf(".: filename argument \
+		printf(".: filename argument\
 			required\n.: usage: . filename [arguments]\n");
 		shell->last_exit = 2;
 		return (NULL);
 	}
 	if (!ft_strncmp(cmd, "..", 3))
 	{
-		printf("..: command not found\n");
+		//printf("..: command not found\n");
 		shell->last_exit = 127;
 		return (NULL);
 	}

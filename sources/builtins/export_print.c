@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_print.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danuno-g <danuno-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: made-jes <made-jes@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 11:12:09 by danuno-g          #+#    #+#             */
-/*   Updated: 2026/03/20 23:25:13 by danuno-g         ###   ########.fr       */
+/*   Updated: 2026/03/24 22:23:12 by made-jes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,3 @@ void	print_export_sorted(t_env *env)
 	}
 	free_envp(arr);
 }
-
-//void free_key_value(char *key, char *value)
-//{
-//    free(key);
-//    if (value)
-//        free(value);
-//}
