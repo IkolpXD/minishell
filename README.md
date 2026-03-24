@@ -1,4 +1,4 @@
-*This project has been created as part of the 42 curriculum by made-jes, danuno-g.*
+*This project has been created as part of the 42 curriculum by made-jes, mlucena-.*
 
 # Minishell
 
