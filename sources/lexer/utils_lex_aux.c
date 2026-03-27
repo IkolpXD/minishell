@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_lex_aux.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: made-jes <made-jes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: made-jes <made-jes@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 11:11:52 by danuno-g          #+#    #+#             */
-/*   Updated: 2026/03/20 21:43:46 by made-jes         ###   ########.fr       */
+/*   Updated: 2026/03/27 19:58:23 by made-jes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 static char	*get_next_token(const char *line, int *i)
 {
-	if (line[*i] == '\'' || line[*i] == '\"')
-		return (handle_quotes(line, i));
-	else if ((line[*i] == '>' && line[*i + 1] == '>')
+	if ((line[*i] == '>' && line[*i + 1] == '>')
 		|| (line[*i] == '<' && line[*i + 1] == '<'))
 		return (handle_double_operator(line, i));
 	else if (line[*i] == '>' || line[*i] == '<' || line[*i] == '|')

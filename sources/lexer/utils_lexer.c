@@ -12,32 +12,6 @@
 
 #include "../includes/minishell.h"
 
-char	*handle_quotes(const char *line, int *i)
-{
-	int		start;
-	char	quote;
-
-	start = *i;
-	quote = line[(*i)];
-	(*i)++;
-	while (line[*i])
-	{
-		if (line[*i] == '\\' && quote == '"' && line[*i + 1])
-		{
-			*i += 2;
-			continue ;
-		}
-		if (line[*i] == quote)
-		{
-			(*i)++;
-			return (ft_substr(line, start, *i - start));
-		}
-		(*i)++;
-	}
-	syntax_error("unclosed quotes");
-	return (NULL);
-}
-
 char	*handle_double_operator(const char *line, int *i)
 {
 	char	*op;
@@ -55,14 +29,35 @@ char	*handle_single_operator(const char *line, int *i)
 	return (op);
 }
 
+static void	advance_word(const char *line, int *i, char *quote)
+{
+	if (!*quote && (line[*i] == '\'' || line[*i] == '"'))
+	{
+		*quote = line[*i];
+		(*i)++;
+	}
+	else if (*quote && line[*i] == *quote)
+	{
+		*quote = 0;
+		(*i)++;
+	}
+	else if (*quote == '"' && line[*i] == '\\' && line[*i + 1])
+		*i += 2;
+	else
+		(*i)++;
+}
+
 char	*handle_word(const char *line, int *i)
 {
-	int	start;
+	int		start;
+	char	quote;
 
 	start = *i;
-	while (line[*i] && !ft_is_space(line[*i]) && line[*i] != '>'
-		&& line[*i] != '<' && line[*i] != '|' && line[*i] != '\''
-		&& line[*i] != '\"')
-		(*i)++;
+	quote = 0;
+	while (line[*i] && (quote || (!ft_is_space(line[*i])
+				&& line[*i] != '>' && line[*i] != '<' && line[*i] != '|')))
+		advance_word(line, i, &quote);
+	if (quote)
+		return (syntax_error("unclosed quotes"), NULL);
 	return (ft_substr(line, start, *i - start));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danuno-g <danuno-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: made-jes <made-jes@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 23:08:00 by jomanuel          #+#    #+#             */
-/*   Updated: 2026/03/20 23:25:27 by danuno-g         ###   ########.fr       */
+/*   Updated: 2026/03/27 21:09:22 by made-jes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ int	parse_export_arg(char *arg, char **key, char **value, int *has_equal)
 {
 	char	*eq;
 
+	if (!is_valid_identifier(arg))
+		return (-1);
 	eq = ft_strchr(arg, '=');
 	*has_equal = (eq != NULL);
 	if (!eq)

@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: made-jes <made-jes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: made-jes <made-jes@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/02 18:47:37 by made-jes          #+#    #+#             */
-/*   Updated: 2026/03/20 21:43:38 by made-jes         ###   ########.fr       */
+/*   Created: 2026/03/20 21:25:38 by made-jes          #+#    #+#             */
+/*   Updated: 2026/03/27 21:25:45 by made-jes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include "../includes/minishell.h"
 
@@ -35,19 +37,28 @@ t_token_type	get_token_type(char *line)
 		return (UNKNOWN);
 	if (ft_strncmp(line, "|", 2) == 0)
 		return (PIPE);
-	else if (ft_strncmp(line, "<<", 3) == 0)
+	if (ft_strncmp(line, "<<", 3) == 0)
 		return (HEREDOC);
-	else if (ft_strncmp(line, ">>", 3) == 0)
+	if (ft_strncmp(line, ">>", 3) == 0)
 		return (APPEND);
-	else if (ft_strncmp(line, "<", 2) == 0)
+	if (ft_strncmp(line, "<", 2) == 0)
 		return (REDIR_IN);
-	else if (ft_strncmp(line, ">", 2) == 0)
+	if (ft_strncmp(line, ">", 2) == 0)
 		return (REDIR_OUT);
-	else if ((line[0] == '"' && line[ft_strlen(line) - 1] == '"')
-		|| (line[0] == '\'' && line[ft_strlen(line) - 1] == '\''))
-		return (STR);
-	else
-		return (WORD);
+	return (WORD);
+}
+
+int	is_fully_quoted(char *s)
+{
+	size_t	len;
+
+	if (!s)
+		return (0);
+	len = ft_strlen(s);
+	if (len < 2)
+		return (0);
+	return ((s[0] == '\'' && s[len - 1] == '\'')
+		|| (s[0] == '"' && s[len - 1] == '"'));
 }
 
 t_token	*new_token(char *value)
@@ -59,10 +70,7 @@ t_token	*new_token(char *value)
 		return (NULL);
 	token->value = ft_strdup(value);
 	token->type = get_token_type(value);
-	if (token->type == STR)
-		token->was_quoted = 1;
-	else
-		token->was_quoted = 0;
+	token->was_quoted = is_fully_quoted(value);
 	token->next = NULL;
 	return (token);
 }

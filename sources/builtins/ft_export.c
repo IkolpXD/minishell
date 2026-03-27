@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danuno-g <danuno-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: made-jes <made-jes@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 11:33:07 by danuno-g          #+#    #+#             */
-/*   Updated: 2026/03/20 23:25:30 by danuno-g         ###   ########.fr       */
+/*   Updated: 2026/03/27 21:09:27 by made-jes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ static int	handle_export_arg(t_shell *shell, char *arg)
 
 	key = NULL;
 	value = NULL;
+	if (!is_valid_identifier(arg))
+	{
+		fprintf(stderr, "minishell:export:'%s': not a valid identifier\n", arg);
+		return (1);
+	}
 	if (!parse_export_arg(arg, &key, &value, &has_equal))
 		return (1);
 	if (key[0] == '\0')
@@ -39,18 +44,38 @@ static int	handle_export_arg(t_shell *shell, char *arg)
 int	ft_export(t_shell *shell, char **args)
 {
 	int	i;
+	int	ret;
 
 	if (!args[1])
 	{
 		print_export_sorted(shell->env);
 		return (0);
 	}
+	ret = 0;
 	i = 1;
 	while (args[i])
 	{
-		if (handle_export_arg(shell, args[i]))
-			return (1);
+		if (handle_export_arg(shell, args[i]) != 0)
+			ret = 1;
 		i++;
 	}
-	return (0);
+	return (ret);
+}
+
+int	is_valid_identifier(char *str)
+{
+	int	i;
+
+	if (!str || !*str || str[0] == '=')
+		return (0);
+	if (!ft_isalpha(str[0]) && str[0] != '_')
+		return (0);
+	i = 1;
+	while (str[i] && str[i] != '_')
+	{
+		if (!ft_isalnum(str[i]) && str[i] != '_')
+			return (0);
+		i++;
+	}
+	return (1);
 }

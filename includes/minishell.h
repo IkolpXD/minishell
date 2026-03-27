@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jomanuel <jomanuel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: made-jes <made-jes@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 17:50:01 by made-jes          #+#    #+#             */
-/*   Updated: 2026/03/20 22:59:27 by jomanuel         ###   ########.fr       */
+/*   Updated: 2026/03/27 20:58:09 by made-jes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ int				parse_export_arg(char *arg, char **key, char **value,
 char			*get_env_value_from_env(t_env *env, char *key);
 char			*find_path(char *cmd, t_shell *shell);
 void			add_or_update(t_env **env, char *key, char *value);
+int				is_valid_identifier(char *str);
 
 //HereDoc
 void			cleanup_heredoc_child(t_shell *shell);

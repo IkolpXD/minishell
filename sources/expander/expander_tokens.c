@@ -50,7 +50,7 @@ static int	handle_quotes_expander(char *quote, char c)
 	}
 	if (*quote && c == *quote)
 	{
-		quote = 0;
+		*quote = 0;
 		return (1);
 	}
 	return (0);

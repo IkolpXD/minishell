@@ -66,9 +66,7 @@ void	expand_tokens(t_token **tokens)
 	while (current)
 	{
 		if (current->type == WORD)
-			process_token(&new, current, 1);
-		else if (current->type == STR)
-			process_token(&new, current, 0);
+			process_token(&new, current, !current->was_quoted);
 		else
 			append_token_list(&new, new_token(current->value));
 		current = current->next;
