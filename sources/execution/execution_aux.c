@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_aux.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danuno-g <danuno-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlucena- <mlucena-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 09:15:14 by agrippa           #+#    #+#             */
-/*   Updated: 2026/03/20 23:25:45 by danuno-g         ###   ########.fr       */
+/*   Updated: 2026/03/28 12:03:07 by mlucena-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,7 @@ static void	exec_pipe_aux1(t_ast *node, int *fds, t_shell *shell, int *pipe_fd)
 	if (fds[0] != STDIN_FILENO)
 		dup2(fds[0], STDIN_FILENO);
 	exec_ast(node->left, fds, shell);
-	free_env_list(shell->env);
-	free_ast(shell->ast);
-	free_token_list(shell->tokens);
-	free(shell->line);
-	rl_clear_history();
-	exit(0);
+	cleanup_and_exit(shell, 0);
 }
 
 static void	exec_pipe_aux2(t_ast *node, int *fds, t_shell *shell, int *pipe_fd)
@@ -36,12 +31,7 @@ static void	exec_pipe_aux2(t_ast *node, int *fds, t_shell *shell, int *pipe_fd)
 	if (fds[1] != STDOUT_FILENO)
 		dup2(fds[1], STDOUT_FILENO);
 	exec_ast(node->right, fds, shell);
-	free_env_list(shell->env);
-	free_ast(shell->ast);
-	free_token_list(shell->tokens);
-	free(shell->line);
-	rl_clear_history();
-	exit(0);
+	cleanup_and_exit(shell, 0);
 }
 
 void	exec_pipe(t_ast *node, int *fds, t_shell *shell)

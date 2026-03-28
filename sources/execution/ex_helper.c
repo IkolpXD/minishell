@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ex_helper.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: made-jes <made-jes@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: mlucena- <mlucena-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/21 09:15:14 by agrippa           #+#    #+#             */
-/*   Updated: 2026/03/24 22:31:27 by made-jes         ###   ########.fr       */
+/*   Created: 2026/03/21 09:15:14 by mlucena-          #+#    #+#             */
+/*   Updated: 2026/03/28 12:05:32 by mlucena-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static void	cleanup_and_exit(t_shell *shell, int exit_code)
+void	cleanup_and_exit(t_shell *shell, int exit_code)
 {
 	free_env_list(shell->env);
 	free_ast(shell->ast);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danuno-g <danuno-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlucena- <mlucena-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/20 11:27:40 by danuno-g          #+#    #+#             */
-/*   Updated: 2026/03/20 23:25:25 by danuno-g         ###   ########.fr       */
+/*   Created: 2026/03/28 12:07:13 by mlucena-          #+#    #+#             */
+/*   Updated: 2026/03/28 12:07:16 by mlucena-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	exit_overflow(char *str)
 		return (ft_strncmp(str, EXIT_MAX, 20) <= 0);
 }
 
-int	ft_exit(t_shell *shell, char **args)
+int ft_exit(t_shell *shell, char **args)
 {
 	long	exit_code;
 
@@ -79,22 +79,21 @@ int	ft_exit(t_shell *shell, char **args)
 	{
 		if (!ft_isnumeric(args[1]) || !exit_overflow(args[1]))
 		{
-			printf("exit: %s: numeric argument required\n", args[1]);
+			printf("exit\n");
+			fprintf(stderr, "exit: %s: numeric argument required\n", args[1]);
 			exit_code = 2;
+			exit(exit_code);
 		}
 		else if (args[2])
 		{
-			printf("exit: too many arguments\n");
+			printf("exit\n");
+			fprintf(stderr, "exit: too many arguments\n");
 			return (1);
 		}
 		else
 			exit_code = (unsigned char)ft_atoi(args[1]);
 	}
 	printf("exit\n");
-	free_env(shell->env);
-	free_ast(shell->ast);
-	free_token_list(shell->tokens);
-	free(shell->line);
-	rl_clear_history();
+	cleanup_and_exit(shell, exit_code);
 	exit(exit_code);
 }

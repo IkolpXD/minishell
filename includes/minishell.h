@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: made-jes <made-jes@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: mlucena- <mlucena-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 17:50:01 by made-jes          #+#    #+#             */
-/*   Updated: 2026/03/27 23:52:38 by made-jes         ###   ########.fr       */
+/*   Updated: 2026/03/28 11:23:11 by mlucena-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ void			free_token_list(t_token *tokens);
 void			free_redirs(t_redir *redir);
 void			free_ast(t_ast *node);
 void			free_env_list(t_env *env);
+void			cleanup_and_exit(t_shell *shell, int exit_code);
 
 //Execution
 void			exec_ast(t_ast *node, int *fds, t_shell *shell);
