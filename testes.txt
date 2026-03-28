@@ -53,6 +53,7 @@ cat non_existent | grep something
 ls | | cat
 ls || echo fail
 
+
 PIPES AND COMBINATIONS HARDER
 echo a | echo b | echo c
 cat | cat | cat | cat
@@ -72,9 +73,9 @@ echo $NOT_DEFINED
 echo $?
 echo "$?"
 echo '$?'
-echo $$      # may differ depending on project rules
+echo $$      # may differ depending on project rules //check this
 echo "$USER$PWD"
-echo ${USER}abc   # should behave like bash (careful!)
+echo ${USER}abc   # should behave like bash (careful!) //check this
 export TEST=hello
 echo $TEST
 export TEST="hi there"
@@ -92,7 +93,6 @@ export VAR="   spaces   "
 export VAR="   spaces   " && echo $VAR #with bonus
 export EMPTY= && echo $EMPTY #with bonus
 unset PATH && echo $PATH && ls #with bonus
-
 
 
 BUILTIN EDGE CASES
@@ -167,7 +167,7 @@ cat <<EOF | cat | cat | grep two
 >EOF
 
 cat <<EOF
->^C during here-doc fakta ERRO:aparecer o caracter
+>^C during here-doc
 >EOF
 cat | cat | cat | sleep 3 | cat << eof | sleep 3
 
@@ -183,7 +183,7 @@ sleep 10 → Ctrl+C
 cat → Ctrl+D
 cat → Ctrl+\
 Check $? after each. Bash returns:
-Ctrl+C → 130 ERROR:not showing this number
+Ctrl+C → 130
 Ctrl+\ → 131 ERROR:need to check how to test it
 
 Minishell Tests

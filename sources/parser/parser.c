@@ -6,7 +6,7 @@
 /*   By: made-jes <made-jes@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 20:00:48 by made-jes          #+#    #+#             */
-/*   Updated: 2026/03/28 19:17:17 by made-jes         ###   ########.fr       */
+/*   Updated: 2026/03/28 19:29:47 by made-jes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	syntax_error(char *token)
 {
-	printf("minishell: syntax error near unexpected token - %s\n", token);
+	printf("minishell: syntax error near unexpected token `%s'\n", token);
 	return (1);
 }
 
