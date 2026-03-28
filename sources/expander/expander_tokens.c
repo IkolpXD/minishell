@@ -66,6 +66,31 @@ static char	*expand_or_append(char *res, char *str, int *i, char quote)
 	return (ft_strjoin_char_free(res, str[(*i)++]));
 }
 
+char	*expand_without_split(char *str, int *had_quoted_space)
+{
+	char	*res;
+	int		i;
+	char	quote;
+
+	if (!str)
+		return (ft_strdup(""));
+	res = ft_strdup("");
+	i = 0;
+	quote = 0;
+	while (str && str[i])
+	{
+		if (handle_quotes_expander(&quote, str[i]))
+		{
+			i++;
+			continue ;
+		}
+		if (quote && str[i] == ' ' && had_quoted_space)
+			*had_quoted_space = 1;
+		res = expand_or_append(res, str, &i, quote);
+	}
+	return (res);
+}
+
 char	*expand_token_value(char *str)
 {
 	char	*res;

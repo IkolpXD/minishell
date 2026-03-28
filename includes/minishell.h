@@ -6,7 +6,7 @@
 /*   By: made-jes <made-jes@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 17:50:01 by made-jes          #+#    #+#             */
-/*   Updated: 2026/03/27 20:58:09 by made-jes         ###   ########.fr       */
+/*   Updated: 2026/03/27 23:52:38 by made-jes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ void			expand_tokens(t_token **tokens);
 void			append_token_list(t_token **head, t_token *new_node);
 t_token			*split_and_create_tokens(char *expanded);
 char			*expand_token_value(char *str);
+char			*expand_without_split(char *str, int *had_quoted_space);
 
 //Signals and commands to exit
 void			setup_signals(void);

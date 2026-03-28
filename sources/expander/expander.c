@@ -26,25 +26,32 @@ char	*get_env_value(char *key)
 	return (NULL);
 }
 
-static void	process_token(t_token **new, t_token *current, int split)
+static void	handle_split_token(t_token **new, t_token *current, char *exp)
 {
-	char	*exp;
 	t_token	*lst;
 	t_token	*new_node;
 
-	exp = expand_token_value(current->value);
-	if (split)
+	lst = split_and_create_tokens(exp);
+	if (lst)
+		append_token_list(new, lst);
+	else
 	{
-		lst = split_and_create_tokens(exp);
-		if (lst)
-			append_token_list(new, lst);
-		else
-		{
-			new_node = new_token(exp);
-			new_node->was_quoted = current->was_quoted;
-			append_token_list(new, new_node);
-		}
+		new_node = new_token(exp);
+		new_node->was_quoted = current->was_quoted;
+		append_token_list(new, new_node);
 	}
+}
+
+static void	process_token(t_token **new, t_token *current, int split)
+{
+	char		*exp;
+	t_token		*new_node;
+	int			had_quoted_space;
+
+	had_quoted_space = 0;
+	exp = expand_without_split(current->value, &had_quoted_space);
+	if (split && !had_quoted_space)
+		handle_split_token(new, current, exp);
 	else
 	{
 		new_node = new_token(exp);

@@ -6,11 +6,9 @@
 /*   By: made-jes <made-jes@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 21:25:38 by made-jes          #+#    #+#             */
-/*   Updated: 2026/03/27 21:25:45 by made-jes         ###   ########.fr       */
+/*   Updated: 2026/03/27 23:53:02 by made-jes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #include "../includes/minishell.h"
 

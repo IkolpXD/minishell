@@ -6,7 +6,7 @@
 /*   By: made-jes <made-jes@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 11:21:15 by danuno-g          #+#    #+#             */
-/*   Updated: 2026/03/24 22:50:18 by made-jes         ###   ########.fr       */
+/*   Updated: 2026/03/28 00:00:35 by made-jes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ int	ft_cd(t_shell *shell, char **args)
 	char	*oldpwd;
 	char	*target;
 
+	if (args[1] && args[2])
+	{
+		fprintf(stderr, "cd: too many arguments\n");
+		return (1);
+	}
 	oldpwd = get_env_value_from_env(shell->env, "PWD");
 	if (oldpwd)
 		oldpwd = ft_strdup(oldpwd);
