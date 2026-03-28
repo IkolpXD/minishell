@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlucena- <mlucena-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: made-jes <made-jes@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 17:50:01 by made-jes          #+#    #+#             */
-/*   Updated: 2026/03/28 13:34:10 by mlucena-         ###   ########.fr       */
+/*   Updated: 2026/03/28 17:19:51 by made-jes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <sys/wait.h>
 # include <sys/types.h>
 # include <limits.h>
-# include <errno.h>
+# include <sys/stat.h>
 
 # define PATH_MAX 4096
 # define EXIT_MAX "9223372036854775807"

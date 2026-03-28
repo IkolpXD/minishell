@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlucena- <mlucena-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: made-jes <made-jes@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/28 12:06:38 by mlucena-          #+#    #+#             */
-/*   Updated: 2026/03/28 12:06:42 by mlucena-         ###   ########.fr       */
+/*   Updated: 2026/03/28 17:23:55 by made-jes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,7 @@ int	ft_cd(t_shell *shell, char **args)
 	char	*target;
 
 	if (args[1] && args[2])
-	{
-		fprintf(stderr, "cd: too many arguments\n");
-		return (1);
-	}
+		return (fprintf(stderr, "cd: too many arguments\n"), 1);
 	oldpwd = get_env_value_from_env(shell->env, "PWD");
 	if (oldpwd)
 		oldpwd = ft_strdup(oldpwd);
@@ -48,16 +45,13 @@ int	ft_cd(t_shell *shell, char **args)
 	if (!target)
 	{
 		printf("cd: no such file or directory\n");
-		free(oldpwd);
-		return (1);
+		return (free(oldpwd), 1);
 	}
 	if (chdir(target) != 0)
 	{
 		perror("cd");
-		free(oldpwd);
-		return (1);
+		return (free(oldpwd), 1);
 	}
 	update_cd_env(shell, oldpwd);
-	free(oldpwd);
-	return (0);
+	return (free(oldpwd), 0);
 }

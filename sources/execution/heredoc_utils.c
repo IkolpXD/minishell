@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlucena- <mlucena-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: made-jes <made-jes@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/28 12:04:20 by mlucena-          #+#    #+#             */
-/*   Updated: 2026/03/28 14:16:17 by mlucena-         ###   ########.fr       */
+/*   Updated: 2026/03/28 16:48:05 by made-jes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,11 @@ int	finish_here_doc(t_redir *redir, char *filename, int status)
 {
 	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
 	{
+		write(1, "\n", 1);
 		unlink(filename);
 		free(filename);
-		return (-1);
+		get_shell()->last_exit = 130;
+		exit(get_shell()->last_exit);
 	}
 	if (redir->heredoc_file)
 	{
