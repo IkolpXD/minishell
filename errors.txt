@@ -4,6 +4,7 @@ cat << EOF << END
 >EOF
 >second
 >END
+Just working with one heredoc file
 
 Ctrl+\ → 131 ERROR:need to check how to test it"
 
@@ -11,5 +12,3 @@ não passou
 echo << $USER
 
 Melhorar heredoc!
-
-$EMPTY cat nao funciona

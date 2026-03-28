@@ -6,7 +6,7 @@
 /*   By: made-jes <made-jes@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 20:00:48 by made-jes          #+#    #+#             */
-/*   Updated: 2026/03/27 23:51:40 by made-jes         ###   ########.fr       */
+/*   Updated: 2026/03/28 19:17:17 by made-jes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,10 @@ void	fill_args(t_ast *node, t_token *start, t_token *end)
 	while (tokens && tokens != end)
 	{
 		if (tokens->type == WORD || tokens->type == STR)
-			node->cmd_args[i++] = ft_strdup(tokens->value);
+		{
+			if (tokens->value[0] != '\0' || tokens->was_quoted)
+				node->cmd_args[i++] = ft_strdup(tokens->value);
+		}
 		else if (tokens->type == REDIR_IN || tokens->type == REDIR_OUT
 			|| tokens->type == APPEND || tokens->type == HEREDOC)
 			tokens = tokens->next;
