@@ -6,7 +6,7 @@
 /*   By: mlucena- <mlucena-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/28 12:03:43 by mlucena-          #+#    #+#             */
-/*   Updated: 2026/03/28 13:07:14 by mlucena-         ###   ########.fr       */
+/*   Updated: 2026/03/28 13:28:17 by mlucena-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,11 @@ void	exec_cmd(t_ast *node, int *fds, t_shell *shell)
 	if (pid > 0)
 	{
 		waitpid(pid, &exit_code, 0);
-		write_status(exit_code);
+		if (WIFEXITED(exit_code))
+			shell->last_exit = WEXITSTATUS(exit_code);
+		else if (WIFSIGNALED(exit_code))
+			shell->last_exit = 128 + WTERMSIG(exit_code);
+		write_status(shell->last_exit);
 	}
 	else if (pid < 0)
 		perror("fork");

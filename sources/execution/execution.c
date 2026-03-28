@@ -6,7 +6,7 @@
 /*   By: mlucena- <mlucena-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/28 12:03:53 by mlucena-          #+#    #+#             */
-/*   Updated: 2026/03/28 13:12:55 by mlucena-         ###   ########.fr       */
+/*   Updated: 2026/03/28 13:29:11 by mlucena-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	wait_for_all_children(t_shell *shell)
 
 	while (1)
 	{
-		pid = wait(&status) > 0;
+		pid = wait(&status);
 		if (pid <= 0)
 			break ;
 		if (WIFEXITED(status))

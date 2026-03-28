@@ -6,7 +6,7 @@
 /*   By: mlucena- <mlucena-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/21 09:15:14 by mlucena-          #+#    #+#             */
-/*   Updated: 2026/03/28 13:04:55 by mlucena-         ###   ########.fr       */
+/*   Updated: 2026/03/28 13:45:24 by mlucena-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,16 @@ void	exec_cmd_aux(t_ast *node, int *fds, t_shell *shell, int fds_sup[2])
 		cleanup_and_exit(shell, 127);
 	}
 	envp = env_array(shell->env);
+	/*if (execve(path, node->cmd_args, envp) == -1)
+	{
+		perror("execve");
+		if (errno == ENOENT)
+			exit(127);
+		else if (errno == EACCES)
+			exit(126);
+		else
+			exit(1);
+	}*/
 	execve(path, node->cmd_args, envp);
 	perror("execve");
 	free_envp(envp);
