@@ -6,7 +6,7 @@
 /*   By: made-jes <made-jes@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 17:50:01 by made-jes          #+#    #+#             */
-/*   Updated: 2026/03/28 17:19:51 by made-jes         ###   ########.fr       */
+/*   Updated: 2026/03/28 18:39:19 by made-jes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,19 @@ int				syntax_error(char *token);
 char			*handle_word(const char *line, int *i);
 char			*handle_single_operator(const char *line, int *i);
 char			*handle_double_operator(const char *line, int *i);
-char			*handle_quotes(const char *line, int *i);
+
+//Expander
+void			add_env_var(char *entry);
+//	void			init_env(char **envp);
+char			*get_env_value(char *key);
+char			*expand_var(char *res, char *str, int *i);
+void			expand_tokens(t_token **tokens);
+void			append_token_list(t_token **head, t_token *new_node);
+t_token			*split_and_create_tokens(char *expanded);
+char			*expand_token_value(char *str);
+char			*expand_without_split(char *str, int *had_quoted_space);
+char			*handle_dollar_quote(char *res, char *str, int *i);
+char			*expand_dollar(char *str);
 
 //Parsing
 int				validate_syntax(t_token *tokens);
@@ -123,20 +135,8 @@ t_token			*find_pipe_in_range(t_token *start, t_token *end);
 t_ast			*parse_command_and_redirs(t_token *start, t_token *end);
 void			parse_redirections(t_ast *node, t_token *start, t_token *end);
 
-//Expander
-void			add_env_var(char *entry);
-//	void			init_env(char **envp);
-char			*get_env_value(char *key);
-char			*expand_var(char *res, char *str, int *i);
-void			expand_tokens(t_token **tokens);
-void			append_token_list(t_token **head, t_token *new_node);
-t_token			*split_and_create_tokens(char *expanded);
-char			*expand_token_value(char *str);
-char			*expand_without_split(char *str, int *had_quoted_space);
-
 //Signals and commands to exit
 void			setup_signals(void);
-void			handle_builtin(char *line);
 void			ign_signals(void);
 
 //Freeing

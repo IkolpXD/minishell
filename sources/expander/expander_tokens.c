@@ -79,14 +79,16 @@ char	*expand_without_split(char *str, int *had_quoted_space)
 	quote = 0;
 	while (str && str[i])
 	{
-		if (handle_quotes_expander(&quote, str[i]))
-		{
+		if (str[i] == '$' && str[i + 1] == '"' && !quote)
+			res = handle_dollar_quote(res, str, &i);
+		else if (handle_quotes_expander(&quote, str[i]))
 			i++;
-			continue ;
+		else
+		{
+			if (quote && str[i] == ' ' && had_quoted_space)
+				*had_quoted_space = 1;
+			res = expand_or_append(res, str, &i, quote);
 		}
-		if (quote && str[i] == ' ' && had_quoted_space)
-			*had_quoted_space = 1;
-		res = expand_or_append(res, str, &i, quote);
 	}
 	return (res);
 }

@@ -5,15 +5,7 @@ cat << EOF << END
 >second
 >END
 
-cat <<EOF
->^C during here-doc fakta ERRO:aparecer o caracter
->EOF
-
-Ctrl+C → 130 ERROR:not showing this number
-Ctrl+\ → 131 ERROR:need to check how to test it
-
-Não passou este teste
-echo $"USER"
+Ctrl+\ → 131 ERROR:need to check how to test it"
 
 não passou
 echo << $USER

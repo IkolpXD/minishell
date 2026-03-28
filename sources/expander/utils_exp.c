@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: made-jes <made-jes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: made-jes <made-jes@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 23:06:41 by made-jes          #+#    #+#             */
-/*   Updated: 2026/03/20 21:44:48 by made-jes         ###   ########.fr       */
+/*   Updated: 2026/03/28 18:26:57 by made-jes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,14 @@ void	init_shell(char **envp)
 	sh->line = NULL;
 	sh->tokens = NULL;
 	sh->ast = NULL;
+}
+
+char	*handle_dollar_quote(char *res, char *str, int *i)
+{
+	*i += 2;
+	while (str[*i] && str[*i] != '"')
+		res = ft_strjoin_char_free(res, str[(*i)++]);
+	if (str[*i] == '"')
+		(*i)++;
+	return (res);
 }
