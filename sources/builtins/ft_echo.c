@@ -6,7 +6,7 @@
 /*   By: mlucena- <mlucena-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/28 12:06:47 by mlucena-          #+#    #+#             */
-/*   Updated: 2026/03/28 12:06:50 by mlucena-         ###   ########.fr       */
+/*   Updated: 2026/03/28 12:56:55 by mlucena-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,19 @@ int	n_flag(char *str)
 	}
 	return (i > 1);
 }
+
+/*static void	check_for_sign(char **args, int *i)
+{
+	if (args[*i][0] == '$')
+	{
+		printf("%s", args[*i] + 1);
+	}
+	else
+		printf("%s", args[*i]);
+	if (args[*i + 1])
+		printf(" ");
+	(*i)++;
+}*/
 
 int	ft_echo(char **args)
 {

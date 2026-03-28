@@ -6,7 +6,7 @@
 /*   By: mlucena- <mlucena-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/28 12:07:13 by mlucena-          #+#    #+#             */
-/*   Updated: 2026/03/28 12:07:16 by mlucena-         ###   ########.fr       */
+/*   Updated: 2026/03/28 12:52:24 by mlucena-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	exit_overflow(char *str)
 		return (ft_strncmp(str, EXIT_MAX, 20) <= 0);
 }
 
-int ft_exit(t_shell *shell, char **args)
+int	ft_exit(t_shell *shell, char **args)
 {
 	long	exit_code;
 

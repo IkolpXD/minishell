@@ -6,7 +6,7 @@
 /*   By: mlucena- <mlucena-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/21 09:15:14 by mlucena-          #+#    #+#             */
-/*   Updated: 2026/03/28 12:05:32 by mlucena-         ###   ########.fr       */
+/*   Updated: 2026/03/28 13:04:55 by mlucena-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	exec_cmd_aux(t_ast *node, int *fds, t_shell *shell, int fds_sup[2])
 	if (fds[1] != STDOUT_FILENO)
 		dup2(fds[1], STDOUT_FILENO);
 	if (!node->cmd_args || !node->cmd_args[0])
-		cleanup_and_exit(shell, 0);
+		cleanup_and_exit(shell, 1);
 	path = find_path(node->cmd_args[0], shell);
 	if (!path)
 	{
