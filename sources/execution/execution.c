@@ -6,7 +6,7 @@
 /*   By: made-jes <made-jes@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/28 12:03:53 by mlucena-          #+#    #+#             */
-/*   Updated: 2026/03/28 17:06:38 by made-jes         ###   ########.fr       */
+/*   Updated: 2026/04/04 17:44:38 by made-jes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,6 @@ void	wait_for_all_children(t_shell *shell)
 		pid = wait(&status);
 		if (pid <= 0)
 			break ;
-		if (WIFEXITED(status))
-			shell->last_exit = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			shell->last_exit = 128 + WTERMSIG(status);
 	}
+	(void)shell;
 }

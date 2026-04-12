@@ -6,7 +6,7 @@
 /*   By: made-jes <made-jes@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 17:50:01 by made-jes          #+#    #+#             */
-/*   Updated: 2026/03/28 18:39:19 by made-jes         ###   ########.fr       */
+/*   Updated: 2026/04/11 22:32:38 by made-jes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <sys/types.h>
 # include <limits.h>
 # include <sys/stat.h>
+# include <errno.h>
 
 # define PATH_MAX 4096
 # define EXIT_MAX "9223372036854775807"
@@ -93,6 +94,8 @@ typedef struct s_shell
 	t_env		*env;
 	int			fd;
 	int			last_exit;
+	int			in_prompt;
+	char		*heredoc_tmp_file;
 }				t_shell;
 
 t_shell			*get_shell(void);
@@ -112,7 +115,6 @@ char			*handle_double_operator(const char *line, int *i);
 
 //Expander
 void			add_env_var(char *entry);
-//	void			init_env(char **envp);
 char			*get_env_value(char *key);
 char			*expand_var(char *res, char *str, int *i);
 void			expand_tokens(t_token **tokens);
@@ -138,6 +140,7 @@ void			parse_redirections(t_ast *node, t_token *start, t_token *end);
 //Signals and commands to exit
 void			setup_signals(void);
 void			ign_signals(void);
+void			heredoc_sigint(int sig);
 
 //Freeing
 void			free_split(char **arr);
@@ -150,7 +153,8 @@ void			cleanup_and_exit(t_shell *shell, int exit_code);
 //Execution
 void			exec_ast(t_ast *node, int *fds, t_shell *shell);
 void			restore_stds(int fds[2]);
-void			exec_cmd_for_builtin(t_ast *node, int *fds_sup, t_shell *shell);
+void			exec_cmd_for_builtin(t_ast *node, int *fds_sup,\
+					t_shell *shell, int in_pipe);
 void			exec_cmd_aux(t_ast *node, int *fds,\
 					t_shell *shell, int fds_sup[2]);
 void			exec_cmd(t_ast *node, int *fds, t_shell *shell);
@@ -188,7 +192,8 @@ int				is_valid_identifier(char *str);
 //HereDoc
 void			cleanup_heredoc_child(t_shell *shell);
 char			*expand_heredoc_line(char *line);
-void			here_doc_read(int file, char *del, int should_expand);
+void			here_doc_read(int file, char *del, int should_expand,
+					char *filename);
 char			*create_tmp_filename(void);
 int				prepare_here_doc_file(char **filename);
 int				spawn_here_doc_reader(t_redir *redir, int file, char *filename);
@@ -196,5 +201,6 @@ int				finish_here_doc(t_redir *redir, char *filename, int status);
 int				handle_here_doc(t_redir *redir);
 int				handle_here_doc_tree(t_ast *ast);
 int				here_doc_execution(t_redir *redir);
+void			process_heredoc_line(int file, char *line, int should_expand);
 
 #endif

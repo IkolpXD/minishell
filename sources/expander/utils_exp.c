@@ -6,7 +6,7 @@
 /*   By: made-jes <made-jes@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 23:06:41 by made-jes          #+#    #+#             */
-/*   Updated: 2026/03/28 18:26:57 by made-jes         ###   ########.fr       */
+/*   Updated: 2026/04/11 22:13:30 by made-jes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ void	init_shell(char **envp)
 	sh->line = NULL;
 	sh->tokens = NULL;
 	sh->ast = NULL;
+	sh->in_prompt = 0;
+	sh->heredoc_tmp_file = NULL;
 }
 
 char	*handle_dollar_quote(char *res, char *str, int *i)
