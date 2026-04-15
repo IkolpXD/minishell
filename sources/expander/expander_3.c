@@ -1,31 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   expander_3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: made-jes <made-jes@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/02 18:52:17 by made-jes          #+#    #+#             */
-/*   Updated: 2026/04/15 00:19:56 by made-jes         ###   ########.fr       */
+/*   Created: 2026/04/14 00:46:43 by made-jes          #+#    #+#             */
+/*   Updated: 2026/04/14 00:49:20 by made-jes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_shell	*get_shell(void)
+static char	*expand_exit_status(void)
 {
-	static t_shell	shell;
-
-	return (&shell);
+	return (ft_itoa(get_shell()->last_exit));
 }
 
-int	main(int ac, char **av, char **envp)
+char	*expand_special_var(char *res, char *str, int *i)
 {
-	(void)ac;
-	(void)av;
-	init_shell(envp);
-	setup_signals();
-	run_prompt();
-	cleanup_and_exit(get_shell(), get_shell()->last_exit);
-	return (0);
+	char	*val;
+
+	if (str[*i] == '?')
+	{
+		val = expand_exit_status();
+		res = ft_strjoin_free(res, val);
+		free(val);
+		(*i)++;
+		return (res);
+	}
+	if (str[*i] == '$')
+	{
+		val = ft_itoa(get_shell()->pid_shell);
+		res = ft_strjoin_free(res, val);
+		free(val);
+		(*i)++;
+		return (res);
+	}
+	return (NULL);
 }
