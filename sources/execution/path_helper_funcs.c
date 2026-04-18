@@ -6,7 +6,7 @@
 /*   By: made-jes <made-jes@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/28 17:20:09 by made-jes          #+#    #+#             */
-/*   Updated: 2026/04/17 23:19:36 by made-jes         ###   ########.fr       */
+/*   Updated: 2026/04/18 18:22:27 by made-jes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,13 @@ static char	*check_special_cmd(char *cmd, t_shell *shell)
 	}
 	if (!ft_strncmp(cmd, "..", 3))
 	{
+		ft_putstr_fd(cmd, 2);
+		ft_putstr_fd(": command not found\n", 2);
 		shell->last_exit = 127;
+		free_env_list(get_shell()->env);
+		free_ast(get_shell()->ast);
+		free_token_list(get_shell()->tokens);
+		free(get_shell()->line);
 		return ((char *)-1);
 	}
 	return ((char *)1);
