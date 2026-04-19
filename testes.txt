@@ -224,19 +224,4 @@ cat < makefile < in < makefile
 
 Criar pasta, apagar a pasta sem sair dela e fazer pwd, deve aparecer o nome correto da pasta apagada
 
-——
-
 < Makefile cat
-
-Exit no meio de pipeline da leaks cat file | exit | echo hello world
-
-Criar pasta, apagar a pasta sem sair dela e fazer pwd, deve aparecer o nome correto da pasta apagada - invalid frees / reads
-
-Export por ordem alfabética
-
-Ls da segfault sem path na child e da fds abertos e leaks
-
-$EMPTY cat nao funciona
-
-
-Cat > ola | grep > Brbr | << eof
